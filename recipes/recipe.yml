@@ -1,0 +1,78 @@
+---
+# yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
+# image will be published to ghcr.io/<user>/<name>
+name: kinoite-cad-os
+# description will be included in the image's metadata
+description: Imagen inmutable personalizada para CAD basada en Fedora Kinoite
+
+# the base image to build on top of (FROM) and the version tag to use
+base-image: ghcr.io/ublue-os/kinoite-main
+image-version: 39
+
+# module configuration, executed in order
+modules:
+  - type: files
+    files:
+      - source: system
+        destination: / # copies files/system/* into your image's root folder /
+
+  # REPOSITORIOS EXTRA
+  - type: script
+    snippets:
+      - "dnf copr enable -y seafile/seafile-client"
+
+  # INSTALACIÓN DE PAQUETES (SISTEMA BASE)
+  - type: rpm-ostree
+    install:
+      - hplip
+      - hplip-gui
+      - tailscale
+      - seadrive-daemon
+      - seadrive-gui
+      - distrobox
+      - podman
+      - zsh
+      - clamav
+      - clamav-update
+      - usbguard
+      - tpm2-tools
+      - veracrypt
+    remove:
+      - firefox
+      - firefox-langpacks
+
+  # HABILITAR SERVICIOS (SEGURIDAD Y RED)
+  - type: systemd
+    system:
+      enabled:
+        - tailscaled.service
+        - usbguard.service
+        - clamav-freshclam.service
+
+  # APLICACIONES DE USUARIO (FLATPAKS)
+  - type: default-flatpaks
+    configurations:
+      - notify: true
+        scope: system
+        install:
+          - org.mozilla.firefox
+          - org.videolan.VLC
+          - com.spotify.Client
+          - com.tidal.Tidal
+          - org.onlyoffice.desktopeditors
+          - com.super_productivity.SuperProductivity
+          - org.mozilla.Thunderbird
+          - org.keepassxc.KeePassXC
+          - me.proton.Pass
+          - org.signal.Signal
+          - chat.rocket.RocketChat
+          - org.gimp.GIMP
+          - org.kde.krita
+          - org.cloudcompare.CloudCompare
+
+  # SOPORTE PARA NVIDIA
+  - type: akmods
+    install:
+      - nvidia
+
+  - type: signing # this sets up the proper policy & signing files for signed images to work fully
