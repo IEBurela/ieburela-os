@@ -7,19 +7,15 @@ description: Imagen inmutable personalizada para CAD basada en Fedora Kinoite
 
 # the base image to build on top of (FROM) and the version tag to use
 base-image: ghcr.io/ublue-os/kinoite-main
-image-version: 43
+image-version: 44
 
 # module configuration, executed in order
 modules:
-  - type: files
-    files:
-      - source: system
-        destination: / # copies files/system/* into your image's root folder /
-
-  # REPOSITORIOS EXTRA
+  # DESCARGAR E INSTALAR SEAFILE DRIVE APPIMAGE
   - type: script
     snippets:
-      - "dnf copr enable -y seafile/seafile-client"
+      - "curl -L -o /usr/bin/seadrive https://sos-ch-dk-2.exo.io/seafile-downloads/SeaDrive-x86_64-3.0.23.AppImage"
+      - "chmod +x /usr/bin/seadrive"
 
   # INSTALACIÓN DE PAQUETES (SISTEMA BASE)
   - type: rpm-ostree
@@ -27,8 +23,6 @@ modules:
       - hplip
       - hplip-gui
       - tailscale
-      - seadrive-daemon
-      - seadrive-gui
       - distrobox
       - podman
       - zsh
