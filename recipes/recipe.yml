@@ -56,7 +56,7 @@ modules:
           - org.mozilla.firefox
           - org.videolan.VLC
           - com.spotify.Client
-          - com.tidal.Tidal
+          - com.mastermindzh.tidal-hifi
           - org.onlyoffice.desktopeditors
           - com.super_productivity.SuperProductivity
           - org.mozilla.Thunderbird
@@ -67,7 +67,6 @@ modules:
           - org.gimp.GIMP
           - org.kde.krita
           - org.cloudcompare.CloudCompare
-          - com.veracrypt.VeraCrypt
 
   # SOPORTE PARA NVIDIA
   - type: akmods
