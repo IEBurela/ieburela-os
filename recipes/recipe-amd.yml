@@ -41,6 +41,7 @@ modules:
       - oddjob-mkhomedir
       - cachefilesd
       - nfs-utils
+      - fuse
     remove:
       - firefox
       - firefox-langpacks
