@@ -6,7 +6,7 @@ name: ieburela-kinoite-nvidia
 description: Imagen inmutable personalizada para CAD basada en Fedora Kinoite
 
 # the base image to build on top of (FROM) and the version tag to use
-base-image: ghcr.io/ublue-os/kinoite-nvidia
+base-image: ghcr.io/ublue-os/silverblue-main
 image-version: 44
 
 # module configuration, executed in order
