@@ -38,9 +38,6 @@ modules:
       - cachefilesd
       - nfs-utils
       - fuse
-    remove:
-      - firefox
-      - firefox-langpacks
 
   # HABILITAR SERVICIOS (SEGURIDAD Y RED)
   - type: systemd
