@@ -1,6 +1,6 @@
-# IEBurela Kinoite CAD OS
+# IEBurela OS
 
-Esta es una imagen personalizada (basada en Fedora Kinoite y Universal Blue) optimizada como Workstation Inmutable para flujos de trabajo de CAD (BricsCAD, FreeCAD) y tareas de diseño.
+Esta es una imagen personalizada (basada en Project Bluefin y Universal Blue) optimizada como Workstation Inmutable para flujos de trabajo de CAD (BricsCAD, FreeCAD) y tareas de diseño.
 
 ## Instalación (Método Estándar)
 
@@ -8,13 +8,13 @@ Si confías en la red y quieres instalar la imagen de manera rápida (el atajo d
 
 ```bash
 # 1. Rebase inicial (trae las llaves de seguridad al sistema)
-sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/IEBurela/ieburela-kinoite-amd:latest
+sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/IEBurela/ieburela-os-amd:latest
 
 # 2. Reiniciar
 sudo systemctl reboot
 
 # 3. Anclar a la imagen firmada y segura
-sudo rpm-ostree rebase ostree-image-signed:docker://ghcr.io/IEBurela/ieburela-kinoite-amd:latest
+sudo rpm-ostree rebase ostree-image-signed:docker://ghcr.io/IEBurela/ieburela-os-amd:latest
 ```
 
 *(Nota: Cambia `-amd` a `-nvidia` si el equipo tiene una GPU Nvidia dedicada).*
@@ -28,7 +28,7 @@ Si eres un purista de la seguridad (Paranoia Level: Expert) y no quieres usar `o
 **1. Descarga la Llave Pública**
 Descarga la llave `cosign.pub` de este repositorio a la máquina destino:
 ```bash
-wget https://raw.githubusercontent.com/IEBurela/kionite/main/cosign.pub -O ~/cosign.pub
+wget https://raw.githubusercontent.com/IEBurela/ieburela-os/main/cosign.pub -O ~/cosign.pub
 ```
 
 **2. Instala la llave en el sistema de contenedores**
@@ -78,7 +78,7 @@ EOF
 **5. Ejecuta el Rebase Seguro Directo**
 Ahora puedes hacer el rebase directamente a la versión firmada sin pasar por la versión insegura:
 ```bash
-sudo rpm-ostree rebase ostree-image-signed:docker://ghcr.io/IEBurela/ieburela-kinoite-amd:latest
+sudo rpm-ostree rebase ostree-image-signed:docker://ghcr.io/IEBurela/ieburela-os-amd:latest
 ```
 
 **6. Reiniciar**
@@ -88,13 +88,13 @@ sudo systemctl reboot
 
 ## Arquitectura
 
-- **Base AMD:** `kinoite-main` (Soporte nativo del kernel).
-  - **Base Nvidia:** `kinoite-nvidia` (Drivers propietarios precompilados).
+- **Base AMD:** `bluefin` (Soporte nativo del kernel).
+  - **Base Nvidia:** `bluefin-nvidia` (Drivers propietarios precompilados).
   - **Actualizaciones:** Automatizadas y gestionadas por `ublue-update` (descarga en segundo plano, se aplica al reiniciar).
 
 ## 🛠️ Post-Instalación (Nuevos Equipos)
 
-Una vez que la máquina haya reiniciado en la nueva imagen personalizada (`IEBurela Fedora 44`), debes ejecutar estos comandos **una sola vez** para integrarla a la red corporativa.
+Una vez que la máquina haya reiniciado en la nueva imagen personalizada (`IEBurela CAD OS`), debes ejecutar estos comandos **una sola vez** para integrarla a la red corporativa.
 
 ### 1. Establecer el Nombre de Host (Hostname)
 Evita colisiones de DNS asignando un nombre único antes de unir la máquina a la red.
